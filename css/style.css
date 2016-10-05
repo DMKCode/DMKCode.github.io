@@ -100,7 +100,7 @@ section.main {
   color: #d7ecff;
 }
 section.main .post {
-  margin-top: 200px;
+  margin-top: 60px;
 }
 @media (max-width: 33.9em) {
   section.main .post {
@@ -344,6 +344,7 @@ section.main .post .content .pullquote.left {
 section.main .post .content img {
   display: block;
   margin: 0 auto;
+  width: 100%;
 }
 section.main .post .content .video-container {
   position: relative;
