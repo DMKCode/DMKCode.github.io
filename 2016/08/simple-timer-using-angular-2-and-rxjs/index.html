@@ -12,7 +12,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="This is Part 1 for creating a ‘simple timer using Angular 2 &amp;amp; RxJS’.DISCLAIMER: I’m not an expert, if you have a better and more efficient solutio">
+        <meta name="description" content="This is Part 1 for creating a ‘Simple Timer using Angular 2 &amp;amp; RxJS’.DISCLAIMER: I’m not an expert, if you have a better and more efficient solutio">
     
 
     <!--Author-->
@@ -22,7 +22,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="simple timer using angular 2 and RxJS - part 1"/>
+        <meta property="og:title" content="Simple Timer using Angular 2 and RxJS - part 1"/>
     
 
     <!--Open Graph Description-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>simple timer using angular 2 and RxJS - part 1 - DMKCode</title>
+    <title>Simple Timer using Angular 2 and RxJS - part 1 - DMKCode</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -147,7 +147,7 @@
     <div class="post-header">
         <h1 class="title">
             <a href="/2016/08/simple-timer-using-angular-2-and-rxjs/">
-                simple timer using angular 2 and RxJS - part 1
+                Simple Timer using Angular 2 and RxJS - part 1
             </a>
         </h1>
         <div class="post-info">
@@ -167,9 +167,9 @@
         
 
         <!-- Post Content -->
-        <blockquote><p>This is Part 1 for creating a ‘simple timer using Angular 2 &amp; RxJS’.<br><br><br>DISCLAIMER: I’m not an expert, if you have a better and more efficient solution, give me shout in the comments, I’m always looking to learn.</p>
+        <blockquote><p>This is Part 1 for creating a ‘Simple Timer using Angular 2 &amp; RxJS’.<br><br><br>DISCLAIMER: I’m not an expert, if you have a better and more efficient solution, give me shout in the comments, I’m always looking to learn.</p>
 </blockquote>
-<p>There are many ways to create a timer (counting up) using javascript and today I would like to show you how to implement one as a component using the Angular2 framework and RxJS library. To find out more about Angular2, visit the official documentation <a href="https://angular.io/" target="_blank" rel="external">here</a> and for more RxJS, visit the official documentation <a href="http://reactivex.io/rxjs/" target="_blank" rel="external">here</a>.</p>
+<p>There are many ways to create a timer (counting up) using javascript and in this post, I would like to show you how to implement one as a component using the Angular2 framework and RxJS library. To find out more about Angular2, visit the official documentation <a href="https://angular.io/" target="_blank" rel="external">here</a> and for more RxJS, visit the official documentation <a href="http://reactivex.io/rxjs/" target="_blank" rel="external">here</a>.</p>
 <p>The begin with, we will look at the structure of the project and then walk through the steps for how to create the component. Lets begin!</p>
 <h2 id="Project-Structure"><a href="#Project-Structure" class="headerlink" title="Project Structure"></a>Project Structure</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── node_modules/</div><div class="line">├── package.json</div><div class="line">├── src</div><div class="line">│   └── app</div><div class="line">│       ├── assets/</div><div class="line">│       ├── index.html</div><div class="line">│       └── scripts</div><div class="line">│           ├── bootstrap.ts</div><div class="line">│           ├── components/</div><div class="line">|           |   ├── app.component.ts</div><div class="line">|           |   ├── app.component.html</div><div class="line">|           |   └── app.module.ts</div><div class="line">│           └── vendor.ts</div><div class="line">├── tsconfig.json</div><div class="line">├── typings/</div><div class="line">├── typings.json</div><div class="line">└── webpack</div><div class="line">    └── webpack.dev.js</div></pre></td></tr></table></figure>
 <p>The structure is organised to be as simple as possible. You can find the skeleton for this project structure on my <a href="https://github.com/DMKCode/dmkcode_angular2_webpack_skeleton" target="_blank" rel="external">Github</a>.</p>
@@ -213,7 +213,7 @@
 <p>The getHours() function simply divides the value, i.e. the ticks from the observable, divided by 60 twice. We then append a ‘0’ at the beginning if the value is below 10 by passing the result to the pad function.</p>
 <p>AND finally, don’t forgot add the timer to ‘app.component.html’<br><figure class="highlight html"><figcaption><span>app.component.html</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">timer</span>&gt;</span><span class="tag">&lt;/<span class="name">timer</span>&gt;</span></div></pre></td></tr></table></figure></p>
 <h2 id="Run-It"><a href="#Run-It" class="headerlink" title="Run It"></a>Run It</h2><p>To check out the timer in action, just run the command</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm run start</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ npm install</div><div class="line">$ npm run start</div></pre></td></tr></table></figure>
 <p>Go to <a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a> or <a href="http://localhost:8080/webpack-dev-server/" target="_blank" rel="external">http://localhost:8080/webpack-dev-server/</a> to see the timer!</p>
 <img src="/2016/08/simple-timer-using-angular-2-and-rxjs/Simple_TImer_Part1.png" alt="100% simple timer" title="100% simple timer">
 <p><br><br>The complete source code can be found on my <a href="https://github.com/DMKCode/timer_angular2_rxjs" target="_blank" rel="external">Github</a>.</p>
@@ -270,7 +270,11 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2016/08/simple-timer-using-angular-2-and-rxjs/">simple timer using angula...</a>
+                <a class="footer-post" href="/2016/09/simple-timer-using-angular-2-and-rxjs-part-2/">Simple Timer using Angula...</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2016/08/simple-timer-using-angular-2-and-rxjs/">Simple Timer using Angula...</a>
             </li>
             
         </ul>
