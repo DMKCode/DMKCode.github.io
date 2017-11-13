@@ -1,0 +1,8 @@
+.image__home {
+  width: 90%;
+  max-width: 615px;
+}
+
+.image__home, img {
+  width: 100%;
+}
