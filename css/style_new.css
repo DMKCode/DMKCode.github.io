@@ -359,6 +359,17 @@ img {
     box-shadow: 0 1px 3px rgba(0,0,0,.15);
 }
 
+/* CV */
+.cv a.pdf {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.cv a.pdf:hover {
+  color: #ffc000;
+}
+
 /* Social */
 .social {
     display: inline-flex;
