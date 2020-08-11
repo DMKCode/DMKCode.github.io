@@ -1,34 +1,30 @@
-baseURL = "https://dmkcode.com"
-languageCode = "en-gb"
-title = "DMKCode"
+baseURL = "https://example.com"
+languageCode = "en-us"
+title = "Archie"
 theme="archie"
-copyright = "© DMKCode"
-# Code Highlight
+copyright = "© Athul"
 pygmentsstyle = "monokai"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
-
-paginate=3 # articles per page
-
 [params]
-	mode="light" # color-mode → light,dark or auto
+	mode="auto"
 	featherIconsCDN=true
-	subtitle = "Code, Thoughts, The Journey."
-
-# Social Tags
+	subtitle = "Minimal and Clean [blog theme for Hugo](https://github.com/athul/archie)"
 
 [[params.social]]
 name = "GitHub"
 icon = "github"
-url = "https://github.com/dmkcode"
+url = "https://github.com/athul/archie"
 
 [[params.social]]
 name = "Twitter"
 icon = "twitter"
-url = "https://twitter.com/dmkcode"
+url = "https://github.com/athulcajay/"
 
-# Main menu Items
-
+[[params.social]]
+name = "GitLab"
+icon = "gitlab"
+url = "https://gitlab.com/athul/"
 [[menu.main]]
 name = "Home"
 url = "/"
