@@ -1,0 +1,50 @@
+baseURL = "https://dmkcode.com"
+languageCode = "en-gb"
+title = "DMKCode"
+theme="archie"
+copyright = "© DMKCode"
+# Code Highlight
+pygmentsstyle = "monokai"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+
+paginate=3 # articles per page
+
+[params]
+	mode="light" # color-mode → light,dark or auto
+	featherIconsCDN=true
+	subtitle = "Code, Thoughts, The Journey."
+
+# Social Tags
+
+[[params.social]]
+name = "GitHub"
+icon = "github"
+url = "https://github.com/dmkcode"
+
+[[params.social]]
+name = "Twitter"
+icon = "twitter"
+url = "https://twitter.com/dmkcode/"
+
+# Main menu Items
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "All posts"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 3
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 4
