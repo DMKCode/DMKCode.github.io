@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Using Jest snapshots to simply redux tests - DMKCode</title><meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta property="og:description" content="" />
+	<meta name="twitter:description" content="" />
+	<meta name="description" content="" />
+	<meta name="description" content="" />
+
+	<meta property="og:title" content="Using Jest snapshots to simply redux tests | DMKCode" />
+	<meta name="twitter:title" content="Using Jest snapshots to simply redux tests | DMKCode" />
+
+	<meta property="og:image" content=""/>
+	<meta itemprop="name" content="Using Jest snapshots to simply redux tests | DMKCode" />
+	<meta name="application-name" content="Using Jest snapshots to simply redux tests | DMKCode" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:title" content="Using Jest snapshots to simply redux tests" />
+<meta property="og:description" content="When writing tests for redux actions and reducers, its often the case when refactoring actions and reducers, tests are broken and manual changes need to be made to the tests to reflect these changes." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="DMKCode.github.io/posts/redux-jest-snapshot/" />
+<meta property="article:published_time" content="2017-08-12T10:23:20+00:00" />
+<meta property="article:modified_time" content="2017-08-12T10:23:20+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using Jest snapshots to simply redux tests"/>
+<meta name="twitter:description" content="When writing tests for redux actions and reducers, its often the case when refactoring actions and reducers, tests are broken and manual changes need to be made to the tests to reflect these changes."/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" media="screen" href="DMKCode.github.iocss/main.css" />
+</head><body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="DMKCode.github.io">DMKCode</a>
+	</div>
+	<nav>
+		
+		<a href="DMKCode.github.io/">Home</a>
+		
+		<a href="DMKCode.github.io/posts">All posts</a>
+		
+		<a href="DMKCode.github.io/about">About</a>
+		
+		<a href="DMKCode.github.io/tags">Tags</a>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Using Jest snapshots to simply redux tests</h1>
+			<div class="meta">Posted on Aug 12, 2017</div>
+		</div>
+		
+
+		<section class="body">
+			<p>When writing tests for redux actions and reducers, its often the case when refactoring actions and reducers, tests are broken and manual changes need to be made to the tests to reflect these changes. In this post I&rsquo;m going to describe a simple way to write concise tests which allow for easy refactoring using <a href="https://facebook.github.io/jest/">Jest</a> snapshots.</p>
+<h2 id="case-point">Case Point</h2>
+<p>Lets assume, you have an action creator defined in some file called &lsquo;actions.js&rsquo;.
+This action creator expects a numeric data type which is then parsed to floating point number and attached to the action - something along these lines&hellip;</p>
+<h4 id="actionsjs">actions.js</h4>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#268bd2">export</span> <span style="color:#268bd2">const</span> CONVERT_NUMBER <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;CONVERT_NUMBER&#39;</span>;
+
+<span style="color:#268bd2">export</span> <span style="color:#268bd2">const</span> convertNumber <span style="color:#719e07">=</span> (num) =&gt; ({
+  type<span style="color:#719e07">:</span> CONVERT_NUMBER,
+  floatingPointNumber<span style="color:#719e07">:</span> <span style="color:#b58900">parseFloat</span>(num),
+});
+
+</code></pre></td></tr></table>
+</div>
+</div><p>In the test for this action creator, you would have something along the lines of&hellip;</p>
+<h4 id="actionstestjs">actions.test.js</h4>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#268bd2">import</span> { CONVERT_NUMBER, convertNumber } from <span style="color:#2aa198">&#39;../actions/actions.js&#39;</span>;
+
+it(<span style="color:#2aa198">&#39;creates a CONVERT_NUMBER action&#39;</span>, () =&gt; {
+  <span style="color:#268bd2">const</span> expected <span style="color:#719e07">=</span> {
+    type<span style="color:#719e07">:</span> CONVERT_NUMBER,
+    floatingPointNumber<span style="color:#719e07">:</span> <span style="color:#b58900">parseFloat</span>(<span style="color:#2aa198">100</span>),
+  };
+  <span style="color:#268bd2">const</span> actual <span style="color:#719e07">=</span> convertNumber();
+  expect(actual).toEqual(expected);
+});
+
+</code></pre></td></tr></table>
+</div>
+</div><p>This form of testing works and perfectly suitable for most situations. However, once we make any changes to the action creator, we would need to manually update the test to reflect the same changes.
+What Jest provides is a simple way to automate the updates to the tests using snapshots.</p>
+<p>To make use of snapshots we would change the test above like so&hellip;</p>
+<h4 id="actionstestjs-1">actions.test.js</h4>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">it(<span style="color:#2aa198">&#39;creates a CONVERT_NUMBER action&#39;</span>, () =&gt; {
+  expect(convertNumber()).toMatchSnapshot();
+});
+
+</code></pre></td></tr></table>
+</div>
+</div><p>On first run of the test, Jest will create a snapshot in the &lsquo;__snapshots&rsquo; directory relative to the test file. When updates are made to the action creator such as removing &lsquo;parseFloat&rsquo;, the test will fail with a description that the action creator has changed, giving you the opportunity to update the snapshot if the changes are deemed to be appropriate / intended.</p>
+<p>I hope you can see how snapshots can help in writing concise tests for your applications.</p>
+<p>Thanks for reading!</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/DMKCode.github.io/tags/redux">redux</a></li>
+					
+					<li><a href="/DMKCode.github.io/tags/jest">jest</a></li>
+					
+					<li><a href="/DMKCode.github.io/tags/react">react</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+<hr><a class="soc" href="https://github.com/dmkcode" title="GitHub"><i data-feather="github"></i></a>|<a class="soc" href="https://twitter.com/dmkcode" title="Twitter"><i data-feather="twitter"></i></a>|⚡️
+	2020  © DMKCode |  <a href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+
+<script>
+      feather.replace()
+</script></div>
+    </body>
+</html>

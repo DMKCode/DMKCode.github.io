@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Dockerizing My Dev Environment - DMKCode</title><meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta property="og:description" content="" />
+	<meta name="twitter:description" content="" />
+	<meta name="description" content="" />
+	<meta name="description" content="" />
+
+	<meta property="og:title" content="Dockerizing My Dev Environment | DMKCode" />
+	<meta name="twitter:title" content="Dockerizing My Dev Environment | DMKCode" />
+
+	<meta property="og:image" content=""/>
+	<meta itemprop="name" content="Dockerizing My Dev Environment | DMKCode" />
+	<meta name="application-name" content="Dockerizing My Dev Environment | DMKCode" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:title" content="Dockerizing My Dev Environment" />
+<meta property="og:description" content="Docker is a containerization platform that simplifies building, shipping and running apps." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="DMKCode.github.io/posts/dockerize-dev-environment/" />
+<meta property="article:published_time" content="2016-10-01T23:48:57+00:00" />
+<meta property="article:modified_time" content="2016-10-01T23:48:57+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Dockerizing My Dev Environment"/>
+<meta name="twitter:description" content="Docker is a containerization platform that simplifies building, shipping and running apps."/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" media="screen" href="DMKCode.github.iocss/main.css" />
+</head><body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="DMKCode.github.io">DMKCode</a>
+	</div>
+	<nav>
+		
+		<a href="DMKCode.github.io/">Home</a>
+		
+		<a href="DMKCode.github.io/posts">All posts</a>
+		
+		<a href="DMKCode.github.io/about">About</a>
+		
+		<a href="DMKCode.github.io/tags">Tags</a>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Dockerizing My Dev Environment</h1>
+			<div class="meta">Posted on Oct 1, 2016</div>
+		</div>
+		
+
+		<section class="body">
+			<p><a href="https://www.docker.com/">Docker</a> is a containerization platform that simplifies building, shipping and running apps.</p>
+<p>As a developer, having a consistent environmment removes a lot of the pain associated with having to make sure the computers you use have the same version of software such as frameworks e.g. node.</p>
+<p>There many more benefits docker offers and, environment consistency and the ability to have other developers run your app without having to configure the environment (apart from having docker installed) is what this post is about.</p>
+<p>I&rsquo;m going to demonstrate how to dockerize a Node (Express) app for development.</p>
+<p>I&rsquo;m going to assume you have:</p>
+<ul>
+<li>An app generated using <a href="https://expressjs.com/en/starter/generator.html">express-generator</a>
+To generate:</li>
+</ul>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install express-generator -g
+$ express dockerize_dev_env --hbs
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>Docker installed on your machine: <a href="https://www.docker.com/products/docker">Docker for Mac or Windows</a></li>
+</ul>
+<p>With our app ready and running using node on the local machine, we can now change it such that our app should run in a docker container with node and anything else we need for development installed on it. This means that we could run this container with docker on another machine without needing to have node on installed on it.</p>
+<h2 id="the-dockerfile">The Dockerfile</h2>
+<p>We first create the Dockerfile at the root of the project generated (above).
+This file is what is used to build the node image for our environment.
+Read more about the commands used in the file <a href="https://docs.docker.com/engine/reference/builder/">here</a>.</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-dockerfile" data-lang="dockerfile"><span style="color:#719e07">FROM</span><span style="color:#2aa198"> node:latest</span>
+
+<span style="color:#719e07">MAINTAINER</span><span style="color:#2aa198"> DMKCode</span>
+
+<span style="color:#719e07">ENV</span> <span style="color:#268bd2">NODE_ENV</span><span style="color:#719e07">=</span>development 
+<span style="color:#719e07">ENV</span> <span style="color:#268bd2">PORT</span><span style="color:#719e07">=</span><span style="color:#2aa198">3000</span>
+
+<span style="color:#719e07">COPY</span> . /src
+<span style="color:#719e07">WORKDIR</span><span style="color:#2aa198"> /src</span>
+
+<span style="color:#586e75"># use nodemon for development</span>
+<span style="color:#719e07">RUN</span> npm install --global nodemon
+
+<span style="color:#719e07">RUN</span> npm install
+
+<span style="color:#586e75"># we do this because when we create the container using this image, node_modules from npm install is wiped out as the volume is mounted when creating the container.</span>
+<span style="color:#719e07">RUN</span> mv /src/node_modules /node_modules
+
+<span style="color:#719e07">EXPOSE</span><span style="color:#2aa198"> $PORT</span>
+
+<span style="color:#719e07">CMD</span> [<span style="color:#2aa198">&#34;npm&#34;</span>, <span style="color:#2aa198">&#34;start&#34;</span>]
+</code></pre></td></tr></table>
+</div>
+</div><p>Essentially what the file does is pull in the latest node image to use as the base image, then sets who the maintainer of the image is i.e. DMKCode.
+The file then defines two environment variables which will be available to the container created from the image for the app in the container to use.
+The file then copies the source code from the root folder locally into the image in a folder /src which is also then set as the working directory.
+The file then installs <a href="https://github.com/remy/nodemon">nodemon</a> (watches files and restarts the application if there is a change) globally in the image, then installs the dependencies defined in package.json and then moves the node_modules folder.
+Finally, the file then specifies the default executing command for the container created from the image.</p>
+<p>We then create the <a href="https://docs.docker.com/compose/">docker-compose.yml</a> which is particularly useful for multi-container Docker applications. We will use it here for linking the local source to a volume which will be mounted on a container, and naming our container and image without using the command line.</p>
+<h2 id="the-docker-composeyml">The docker-compose.yml</h2>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#719e07">version</span>: <span style="color:#2aa198">&#34;2&#34;</span>
+
+<span style="color:#719e07">services</span>:
+  <span style="color:#719e07">node_express</span>:
+    <span style="color:#719e07">container_name</span>: node-express
+    <span style="color:#719e07">image</span>: dmkcode/node-express
+    <span style="color:#719e07">build</span>: 
+      <span style="color:#719e07">context</span>: .
+    <span style="color:#719e07">command</span>: nodemon --debug=<span style="color:#2aa198">5858</span>
+    <span style="color:#719e07">volumes</span>:
+      - .:/src
+    <span style="color:#719e07">ports</span>:
+      - <span style="color:#2aa198">&#34;8000:3000&#34;</span>
+      - <span style="color:#2aa198">&#34;5858:5858&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>The file defines a service called node_express from the image built from the Dockerfile in the current directory.
+The file, for develpment overrides the command specified in the Dockerfile which enables remote debugging provided by node. However, the image on its own will not have this enabled which is suitable for production. For more about live debugging, check out the <a href="https://blog.docker.com/2016/07/live-debugging-docker/">blog</a> by <a href="https://blog.docker.com/author/aanand/">Aanand Prasad</a>.
+The file then mounts the current directory as a volume /src overwriting anything in it. This means the image will not have to be rebuilt every time there is a change to the source code.
+The file then maps port 3000 in the container to port 8000 externally i.e. machine localhost and port 5858 in the container to port 5858 externally i.e. machine localhost for connecting to the remote debugger.</p>
+<h2 id="run-it">Run It</h2>
+<p>Check out the app by running:</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose build
+$ docker-compose up
+</code></pre></td></tr></table>
+</div>
+</div><p>Go to http://localhost:8000 to see the app!</p>
+<p>{% asset_img node_express.png 100% node app %}
+<!-- raw HTML omitted -->
+If you were to make changes to the source code, the app in the container will be automatically restarted by nodemon meaning no need to rebuild the image.</p>
+<p>The complete source code can be found on my <a href="https://github.com/DMKCode/dockerize_dev_env">Github</a>.</p>
+<p>Thanks for reading!</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/DMKCode.github.io/tags/docker">Docker</a></li>
+					
+					<li><a href="/DMKCode.github.io/tags/node.js">Node.js</a></li>
+					
+					<li><a href="/DMKCode.github.io/tags/express">Express</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+<hr><a class="soc" href="https://github.com/dmkcode" title="GitHub"><i data-feather="github"></i></a>|<a class="soc" href="https://twitter.com/dmkcode" title="Twitter"><i data-feather="twitter"></i></a>|⚡️
+	2020  © DMKCode |  <a href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+
+<script>
+      feather.replace()
+</script></div>
+    </body>
+</html>

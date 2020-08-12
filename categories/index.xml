@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on DMKCode</title>
+    <link>DMKCode.github.io/categories/</link>
+    <description>Recent content in Categories on DMKCode</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <copyright>© DMKCode</copyright>
+    <lastBuildDate>Sat, 01 Oct 2016 23:48:57 +0000</lastBuildDate>
+    
+	<atom:link href="DMKCode.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker</title>
+      <link>DMKCode.github.io/categories/docker/</link>
+      <pubDate>Sat, 01 Oct 2016 23:48:57 +0000</pubDate>
+      
+      <guid>DMKCode.github.io/categories/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Express</title>
+      <link>DMKCode.github.io/categories/express/</link>
+      <pubDate>Sat, 01 Oct 2016 23:48:57 +0000</pubDate>
+      
+      <guid>DMKCode.github.io/categories/express/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Node.js</title>
+      <link>DMKCode.github.io/categories/node.js/</link>
+      <pubDate>Sat, 01 Oct 2016 23:48:57 +0000</pubDate>
+      
+      <guid>DMKCode.github.io/categories/node.js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Angular2</title>
+      <link>DMKCode.github.io/categories/angular2/</link>
+      <pubDate>Thu, 15 Sep 2016 16:22:56 +0000</pubDate>
+      
+      <guid>DMKCode.github.io/categories/angular2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RxJS</title>
+      <link>DMKCode.github.io/categories/rxjs/</link>
+      <pubDate>Thu, 15 Sep 2016 16:22:56 +0000</pubDate>
+      
+      <guid>DMKCode.github.io/categories/rxjs/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

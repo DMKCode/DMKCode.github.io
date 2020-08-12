@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html><head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Simple Timer using Angular 2 and RxJS - part 1 - DMKCode</title><meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta property="og:description" content="" />
+	<meta name="twitter:description" content="" />
+	<meta name="description" content="" />
+	<meta name="description" content="" />
+
+	<meta property="og:title" content="Simple Timer using Angular 2 and RxJS - part 1 | DMKCode" />
+	<meta name="twitter:title" content="Simple Timer using Angular 2 and RxJS - part 1 | DMKCode" />
+
+	<meta property="og:image" content=""/>
+	<meta itemprop="name" content="Simple Timer using Angular 2 and RxJS - part 1 | DMKCode" />
+	<meta name="application-name" content="Simple Timer using Angular 2 and RxJS - part 1 | DMKCode" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:title" content="Simple Timer using Angular 2 and RxJS - part 1" />
+<meta property="og:description" content="This is Part 1 for creating a &lsquo;Simple Timer using Angular 2 &amp; RxJS&rsquo;." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="DMKCode.github.io/posts/simple-timer-using-angular-2-and-rxjs/" />
+<meta property="article:published_time" content="2016-08-15T17:25:53+00:00" />
+<meta property="article:modified_time" content="2016-08-15T17:25:53+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Simple Timer using Angular 2 and RxJS - part 1"/>
+<meta name="twitter:description" content="This is Part 1 for creating a &lsquo;Simple Timer using Angular 2 &amp; RxJS&rsquo;."/>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" media="screen" href="DMKCode.github.iocss/main.css" />
+</head><body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="DMKCode.github.io">DMKCode</a>
+	</div>
+	<nav>
+		
+		<a href="DMKCode.github.io/">Home</a>
+		
+		<a href="DMKCode.github.io/posts">All posts</a>
+		
+		<a href="DMKCode.github.io/about">About</a>
+		
+		<a href="DMKCode.github.io/tags">Tags</a>
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Simple Timer using Angular 2 and RxJS - part 1</h1>
+			<div class="meta">Posted on Aug 15, 2016</div>
+		</div>
+		
+
+		<section class="body">
+			<blockquote>
+<p>This is Part 1 for creating a &lsquo;Simple Timer using Angular 2 &amp; RxJS&rsquo;.</p>
+</blockquote>
+<p>There are many ways to create a timer (counting up) using javascript and in this post, I would like to show you how to implement one as a component using the Angular2 framework and RxJS library. To find out more about Angular2, visit the official documentation <a href="https://angular.io/">here</a> and for more RxJS, visit the official documentation <a href="http://reactivex.io/rxjs/">here</a>.</p>
+<p>The begin with, we will look at the structure of the project and then walk through the steps for how to create the component. Lets begin!</p>
+<h2 id="project-structure">Project Structure</h2>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">.
+├── node_modules/
+├── package.json
+├── src
+│   └── app
+│       ├── assets/
+│       ├── index.html
+│       └── scripts
+│           ├── bootstrap.ts
+│           ├── components/
+|           |   ├── app.component.ts
+|           |   ├── app.component.html
+|           |   └── app.module.ts
+│           └── vendor.ts
+├── tsconfig.json
+├── typings/
+├── typings.json
+└── webpack
+    └── webpack.dev.js
+</code></pre></td></tr></table>
+</div>
+</div><p>The structure is organised to be as simple as possible. You can find the skeleton for this project structure on my <a href="https://github.com/DMKCode/dmkcode_angular2_webpack_skeleton">Github</a>.</p>
+<h3 id="project-root">Project Root</h3>
+<p>The project root contains the following files.</p>
+<ul>
+<li>package.json: contains the list of dependencies and scripts we could run from the command line.</li>
+<li>tsconfig.json: contains TypeScript configuration.</li>
+<li>typings.json: conatins the TypeScript definition files.</li>
+<li>node_modules: directory where the dependencies will reside.</li>
+<li>src: directory where the application logic resides. Detailed description is provided below.</li>
+<li>webpack: directory where webpack configuration will reside. <a href="https://webpack.github.io/">Webpack</a> is the module bundler we will use for this project.</li>
+<li>typings: directory where the TypeScript definition files will reside.</li>
+</ul>
+<h3 id="srcapp">src/app</h3>
+<p>Here is a description of whats contained in the &lsquo;src/app&rsquo; directory</p>
+<ul>
+<li>vendor.ts: contains imports for all vendor specific imports.</li>
+<li>bootstrap.ts: used to launch the application by bootstrapping the app module.</li>
+<li>index.html: the main html file.</li>
+<li>scripts/components/app.component.ts: the app root component.</li>
+<li>scripts/components/app.component.html: the template for app root component.</li>
+<li>scripts/components/app.module.ts: the app module. Angular provides &lsquo;NgModule&rsquo; to help organize an application into cohesive blocks of functionality. Read more <a href="https://angular.io/docs/ts/latest/guide/ngmodule.html">here</a>.</li>
+</ul>
+<h2 id="the-timer">The Timer</h2>
+<p>Ok now lets write some code!</p>
+<p>Let&rsquo;s begin by creating an empty file named &lsquo;timer.component.ts&rsquo; in &lsquo;src/app/components/&rsquo; directory. This will contain the application logic for the timer.</p>
+<p>The following code makes up our timer component.</p>
+<p>{% gist 4ef717db4f7a85c984be93d156226d3c timer.component.ts %}</p>
+<h4 id="whats-going-on">whats going on?</h4>
+<p>At the top we first import &lsquo;Component&rsquo; and &lsquo;OnInit&rsquo; from &lsquo;angular/core&rsquo; and, &lsquo;Observable&rsquo; and &lsquo;Subscription&rsquo; from &lsquo;rxjs/Rx&rsquo;.</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typeScript" data-lang="typeScript"><span style="color:#268bd2">import</span> { Component, OnInit } from <span style="color:#2aa198">&#39;@angular/core&#39;</span>;
+<span style="color:#268bd2">import</span> { Observable, Subscription } from <span style="color:#2aa198">&#39;rxjs/Rx&#39;</span>;
+</code></pre></td></tr></table>
+</div>
+</div><p>{% blockquote %}
+The Component decorator allows you to mark a class as an Angular component and provide additional metadata that determines how the component should be processed, instantiated and used at runtime. &ndash; <a href="https://angular.io/docs/ts/latest/api/core/index/Component-decorator.html">Angular Doc</a>
+<!-- raw HTML omitted -->
+The <a href="https://angular.io/docs/ts/latest/api/core/index/OnInit-class.html">OnInit</a> lifecycle hook provides and ngOnInit() function which is called after all data-bound properties of the component are initialised.
+<!-- raw HTML omitted -->
+Observable and Subscription are part of the Reactive Extensions for JavaScript (RxJS) which is a reactive streams library which enables us to deal with asynchronous data streams.
+{% endblockquote %}</p>
+<p>When then provide component metadata.</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typeScript" data-lang="typeScript"><span style="color:#268bd2">@Component</span>({
+    selector<span style="color:#719e07">:</span> <span style="color:#2aa198">&#39;timer&#39;</span>,
+    template<span style="color:#719e07">:</span> <span style="color:#586e75">` 
+</span><span style="color:#586e75">        &lt;h1&gt;
+</span><span style="color:#586e75">            {{hoursDisplay ? hoursDisplay : &#39;00&#39;}} : {{(minutesDisplay) &amp;&amp; (minutesDisplay &lt;= 59) ? minutesDisplay : &#39;00&#39;}} : {{(secondsDisplay) &amp;&amp; (secondsDisplay &lt;= 59) ? secondsDisplay : &#39;00&#39;}} &lt;br/&gt;
+</span><span style="color:#586e75">        &lt;/h1&gt;
+</span><span style="color:#586e75">    `</span>,
+    styles<span style="color:#719e07">:</span> [ <span style="color:#586e75">`
+</span><span style="color:#586e75">        h1 {
+</span><span style="color:#586e75">            color: #57acec;
+</span><span style="color:#586e75">            margin-top: 24px; 
+</span><span style="color:#586e75">            text-align: center;   
+</span><span style="color:#586e75">        }    
+</span><span style="color:#586e75">    `</span>]
+})
+</code></pre></td></tr></table>
+</div>
+</div><p>This essentially means the component will be placed in the html tag with the name &lsquo;timer&rsquo;.
+We provide the template as a string, displaying the hours, minutes and seconds. We could also provide this template as a separate file as we did with the app component.
+And finally, we provide some styles to make the display look a little pretty.</p>
+<p>Next up is the actual timer logic.</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typeScript" data-lang="typeScript">    <span style="color:#268bd2">export</span> <span style="color:#268bd2">class</span> TimerComponent <span style="color:#268bd2">implements</span> OnInit {
+</code></pre></td></tr></table>
+</div>
+</div><p>We make sure our component implements the OnInit lifecycle hook.</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typeScript" data-lang="typeScript">ticks <span style="color:#719e07">=</span> <span style="color:#2aa198">0</span>;  
+minutesDisplay: <span style="color:#dc322f">number</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">0</span>;
+hoursDisplay: <span style="color:#dc322f">number</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">0</span>;
+secondsDisplay: <span style="color:#dc322f">number</span> <span style="color:#719e07">=</span> <span style="color:#2aa198">0</span>;
+
+sub: <span style="color:#dc322f">Subscription</span>;
+</code></pre></td></tr></table>
+</div>
+</div><p>We then declare our variables to store the values</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typeScript" data-lang="typeScript">ngOnInit() {
+    <span style="color:#719e07">this</span>.startTimer();
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>We create the function ngOnInit() which will be called when the component is initialised.
+In this function, we call the startTimer() function explained below.</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typeScript" data-lang="typeScript"><span style="color:#268bd2">private</span> startTimer() {
+    <span style="color:#268bd2">let</span> timer <span style="color:#719e07">=</span> Observable.timer(<span style="color:#2aa198">1</span>, <span style="color:#2aa198">1000</span>);
+    <span style="color:#719e07">this</span>.sub <span style="color:#719e07">=</span> timer.subscribe(
+        t <span style="color:#719e07">=&gt;</span> {
+            <span style="color:#719e07">this</span>.ticks <span style="color:#719e07">=</span> t;
+            
+            <span style="color:#719e07">this</span>.secondsDisplay <span style="color:#719e07">=</span> <span style="color:#719e07">this</span>.getSeconds(<span style="color:#719e07">this</span>.ticks);
+            <span style="color:#719e07">this</span>.minutesDisplay <span style="color:#719e07">=</span> <span style="color:#719e07">this</span>.getMinutes(<span style="color:#719e07">this</span>.ticks);
+            <span style="color:#719e07">this</span>.hoursDisplay <span style="color:#719e07">=</span> <span style="color:#719e07">this</span>.getHours(<span style="color:#719e07">this</span>.ticks);
+        }
+    );
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>In the startTimer() function, we create an observable sequence that produces a value after due time has elapsed and then each period. <a href="https://github.com/Reactive-Extensions/RxJS/blob/master/doc/api/core/operators/timer.md">Rx.Observable.timer(dueTime, [period], [scheduler])</a>
+We then subscribe to the observable and every time a value is produced, i.e. &rsquo;t&rsquo;, we store in the variable &lsquo;ticks&rsquo;. We then get the seconds, minutes and hours (functions explained below) and store them in the respective variables.</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typeScript" data-lang="typeScript"><span style="color:#268bd2">private</span> getSeconds(ticks: <span style="color:#dc322f">number</span>) {
+    <span style="color:#719e07">return</span> <span style="color:#719e07">this</span>.pad(ticks <span style="color:#719e07">%</span> <span style="color:#2aa198">60</span>);
+}
+
+<span style="color:#268bd2">private</span> getMinutes(ticks: <span style="color:#dc322f">number</span>) {
+    eturn <span style="color:#719e07">this</span>.pad((<span style="color:#b58900">Math</span>.floor(ticks <span style="color:#719e07">/</span> <span style="color:#2aa198">60</span>)) <span style="color:#719e07">%</span> <span style="color:#2aa198">60</span>);
+}
+
+<span style="color:#268bd2">private</span> getHours(ticks: <span style="color:#dc322f">number</span>) {
+    <span style="color:#719e07">return</span> <span style="color:#719e07">this</span>.pad(<span style="color:#b58900">Math</span>.floor((ticks <span style="color:#719e07">/</span> <span style="color:#2aa198">60</span>) <span style="color:#719e07">/</span> <span style="color:#2aa198">60</span>));
+}
+
+<span style="color:#268bd2">private</span> pad(digit: <span style="color:#dc322f">any</span>) { 
+    <span style="color:#719e07">return</span> digit <span style="color:#719e07">&lt;=</span> <span style="color:#2aa198">9</span> <span style="color:#719e07">?</span> <span style="color:#2aa198">&#39;0&#39;</span> <span style="color:#719e07">+</span> digit : <span style="color:#dc322f">digit</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>The getSeconds() function simply gets the remainder of the value, i.e. the ticks from the observable, divided by 60. This way the seconds displayed will never exceed 60 as expected. We then append a &lsquo;0&rsquo; at the beginning if the value is below 10 by passing the result to the pad function.</p>
+<p>The getMinutes() function first divides the value, i.e. the ticks from the observable, by 60 and the gets the remainder of result divided by 60. This way the minutes displayed will never exceed 60 as expected. We then append a &lsquo;0&rsquo; at the beginning if the value is below 10 by passing the result to the pad function.</p>
+<p>The getHours() function simply divides the value, i.e. the ticks from the observable, divided by 60 twice. We then append a &lsquo;0&rsquo; at the beginning if the value is below 10 by passing the result to the pad function.</p>
+<p>AND finally, don&rsquo;t forgot add the timer to &lsquo;app.component.html&rsquo;</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#268bd2">timer</span>&gt;&lt;/<span style="color:#268bd2">timer</span>&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="run-it">Run It</h2>
+<p>To check out the timer in action, just run the command</p>
+<div class="highlight"><div style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#495050">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install
+$ npm run start
+</code></pre></td></tr></table>
+</div>
+</div><p>Go to http://localhost:8080 or http://localhost:8080/webpack-dev-server/ to see the timer!</p>
+<p>{% asset_img Simple_TImer_Part1.png 100% simple timer %}
+<!-- raw HTML omitted -->
+The complete source code can be found on my <a href="https://github.com/DMKCode/timer_angular2_rxjs">Github</a>.</p>
+<p>In the next part, I will add another component which will start, pause and stop the timer.</p>
+<p>Thanks for reading!</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/DMKCode.github.io/tags/angular2">Angular2</a></li>
+					
+					<li><a href="/DMKCode.github.io/tags/rxjs">RxJS</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+	</article>
+</main>
+<footer>
+<hr><a class="soc" href="https://github.com/dmkcode" title="GitHub"><i data-feather="github"></i></a>|<a class="soc" href="https://twitter.com/dmkcode" title="Twitter"><i data-feather="twitter"></i></a>|⚡️
+	2020  © DMKCode |  <a href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+</footer>
+
+
+<script>
+      feather.replace()
+</script></div>
+    </body>
+</html>
