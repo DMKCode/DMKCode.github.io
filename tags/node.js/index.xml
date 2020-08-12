@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Node.js on DMKCode</title>
-    <link>DMKCode.github.io/tags/node.js/</link>
+    <link>https://dmkcode.com/tags/node.js/</link>
     <description>Recent content in Node.js on DMKCode</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>© DMKCode</copyright>
     <lastBuildDate>Sat, 01 Oct 2016 23:48:57 +0000</lastBuildDate>
     
-	<atom:link href="DMKCode.github.io/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://dmkcode.com/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Dockerizing My Dev Environment</title>
-      <link>DMKCode.github.io/posts/dockerize-dev-environment/</link>
+      <link>https://dmkcode.com/posts/dockerize-dev-environment/</link>
       <pubDate>Sat, 01 Oct 2016 23:48:57 +0000</pubDate>
       
-      <guid>DMKCode.github.io/posts/dockerize-dev-environment/</guid>
+      <guid>https://dmkcode.com/posts/dockerize-dev-environment/</guid>
       <description>Docker is a containerization platform that simplifies building, shipping and running apps.</description>
     </item>
     

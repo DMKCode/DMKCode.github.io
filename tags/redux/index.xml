@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>redux on DMKCode</title>
-    <link>DMKCode.github.io/tags/redux/</link>
+    <link>https://dmkcode.com/tags/redux/</link>
     <description>Recent content in redux on DMKCode</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>© DMKCode</copyright>
     <lastBuildDate>Sat, 12 Aug 2017 10:23:20 +0000</lastBuildDate>
     
-	<atom:link href="DMKCode.github.io/tags/redux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://dmkcode.com/tags/redux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Using Jest snapshots to simply redux tests</title>
-      <link>DMKCode.github.io/posts/redux-jest-snapshot/</link>
+      <link>https://dmkcode.com/posts/redux-jest-snapshot/</link>
       <pubDate>Sat, 12 Aug 2017 10:23:20 +0000</pubDate>
       
-      <guid>DMKCode.github.io/posts/redux-jest-snapshot/</guid>
+      <guid>https://dmkcode.com/posts/redux-jest-snapshot/</guid>
       <description>When writing tests for redux actions and reducers, its often the case when refactoring actions and reducers, tests are broken and manual changes need to be made to the tests to reflect these changes.</description>
     </item>
     
