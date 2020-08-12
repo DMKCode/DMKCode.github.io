@@ -4,16 +4,18 @@ title = "DMKCode"
 theme="archie"
 copyright = "© DMKCode"
 # Code Highlight
-pygmentsstyle = "monokai"
+pygmentsstyle = "solarized-dark"
+pygmentsOptions = "linenos=table"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
+summaryLength = 1
 
 paginate=3 # articles per page
 
 [params]
 	mode="light" # color-mode → light,dark or auto
 	featherIconsCDN=true
-	subtitle = "Code, Thoughts, The Journey."
+	subtitle = ""
 
 # Social Tags
 
