@@ -48,5 +48,14 @@
       <description>This is Part 1 for creating a &amp;lsquo;Simple Timer using Angular 2 &amp;amp; RxJS&amp;rsquo;.</description>
     </item>
     
+    <item>
+      <title>About Me</title>
+      <link>https://dmkcode.com/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dmkcode.com/about/</guid>
+      <description>DMKCode - just some guy that likes to build, break and solve stuff.</description>
+    </item>
+    
   </channel>
 </rss>
